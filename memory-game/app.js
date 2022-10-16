@@ -26,10 +26,14 @@ const cards = [
 ]
 
 const gridDisplay = document.querySelector('#grid')
+const scoreDisplay = document.querySelector('#score')
+const hitsDisplay = document.querySelector('#hits')
 const deck = []
 const wonCards = []
 let chosenCards = []
 let isBlocked = false
+let hits = 0
+let score = 0
 
 cards.forEach((card) => deck.push(card,card))
 deck.sort(() => 0.5 - Math.random())
@@ -60,11 +64,16 @@ function checkMatch() {
     cardTwo.setAttribute('src', 'images/white.png')
     cardOne.removeEventListener('click', flipCard)
     cardTwo.removeEventListener('click', flipCard)
+    score += 10 + hits
+    hits += 1
   } else {
+    hits = 0
     cardOne.setAttribute('src', 'images/blank.jpg')
     cardTwo.setAttribute('src', 'images/blank.jpg')
   }
   
+  scoreDisplay.innerHTML = score
+  hitsDisplay.innerHTML = hits
   isBlocked = false
   chosenCards = []
 }
