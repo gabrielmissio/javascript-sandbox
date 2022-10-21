@@ -1,6 +1,7 @@
 const gridDisplay = document.querySelector('.grid')
 const userDisplay = document.createElement('div')
 const ballDisplay = document.createElement('div')
+const ballDirectionDisplay = document.querySelector('#ballDirection')
 const gridWidth = 560
 const gridHeight = 300
 const blockWidth = 70
@@ -8,6 +9,7 @@ const blockHeight = 10
 const userInitialPosition = [240, 50]
 const ballInitialPosition = [265, 220]
 const ballDiameter = 20
+const directions = { up: 1, down: -1, right: 1, left: -1 }
 let userCurrentPosition = null
 let ballId = null
 let ballCurrentPosition = null
@@ -71,8 +73,8 @@ function randomNumber(min, max) {
 function createBall() {
     ballDisplay.classList.add('ball')
     ballCurrentPosition = ballInitialPosition
-    ballCurrentDirectionY = 1
-    ballCurrentDirectionX = randomNumber(0, 1) %2 === 0 ? 1 : -1
+    ballCurrentDirectionY = directions.down
+    ballCurrentDirectionX = randomNumber(0, 1) %2 === 0 ? directions.right : directions.left
     drawBall()
     gridDisplay.appendChild(ballDisplay)
 }
@@ -95,23 +97,24 @@ function moveUser(e) {
 }
 
 function changeBallDirection() {
-    // ball falling
-    if (ballCurrentDirectionY === -1 && ballCurrentDirectionX === 1) {
-        ballCurrentDirectionX = -1
+    // ball falling to rigth
+    if (ballCurrentDirectionY === directions.down && ballCurrentDirectionX === directions.right) {
+        ballCurrentDirectionX = directions.left
         return
     }
-    if (ballCurrentDirectionY === -1 && ballCurrentDirectionX === -1) {
-        ballCurrentDirectionY = 1
+    // ball falling to left
+    if (ballCurrentDirectionY === directions.down && ballCurrentDirectionX === directions.left) {
+        ballCurrentDirectionY = directions.right
         return
     }
-
-    // ball rising
-    if (ballCurrentDirectionY === 1 && ballCurrentDirectionX === 1) {
-        ballCurrentDirectionY = -1
+    // ball rising to rigth
+    if (ballCurrentDirectionY === directions.up && ballCurrentDirectionX === directions.right) {
+        ballCurrentDirectionY = directions.down
         return
     }
-    if (ballCurrentDirectionY === 1 && ballCurrentDirectionX === -1) {
-        ballCurrentDirectionX = 1
+    // ball rising to left
+    if (ballCurrentDirectionY === directions.up && ballCurrentDirectionX === directions.left) {
+        ballCurrentDirectionX = directions.right
         return
     }
 }
@@ -153,6 +156,7 @@ function moveBall() {
     ballCurrentPosition[1] += ballCurrentDirectionY
     drawBall()
     checkBallCollision()
+    ballDirectionDisplay.innerHTML = `x: ${ballCurrentDirectionX} | y: ${ballCurrentDirectionY}`
 }
 
 function start() {
@@ -160,7 +164,7 @@ function start() {
     createBlocks()
     createUser()
     createBall()
-    ballId = setInterval(moveBall, 7)
+    ballId = setInterval(moveBall, 14)
 }
 
 start()
