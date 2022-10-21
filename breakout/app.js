@@ -130,7 +130,7 @@ function checkBallCollision() {
             ballCurrentPosition[0] < userCurrentPosition[0] + 70
         )
     ) {
-        hitBall()
+        ballCurrentDirectionY = directions.up
     }
 
     // check floor collision
@@ -159,7 +159,7 @@ function checkBallCollision() {
                 result = 'you win!'
                 endGame()
             }
-            changeBallDirection()
+            ballCurrentDirectionY *= -1
         }
     }
 }
@@ -185,10 +185,6 @@ function changeBallDirection() {
         ballCurrentDirectionX = directions.right
         return
     }
-}
-
-function hitBall() {
-    ballCurrentDirectionY = 1
 }
 
 function endGame() {
