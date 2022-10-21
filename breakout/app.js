@@ -1,10 +1,12 @@
 const gridDisplay = document.querySelector('.grid')
-const displayUser = document.createElement('div')
+const userDisplay = document.createElement('div')
+const ballDisplay = document.createElement('div')
 const gridWidth = 560
 const blockWidth = 70
 const blockHeight = 10
 const userInitialPosition = [240, 50]
-let userCurrentPosition = null
+const ballInitialPosition = [265, 220]
+let ballCurrentPosition = null
 
 class Block {
     constructor(xAxis, yAxis) {
@@ -16,16 +18,16 @@ class Block {
 }
 
 const blocks = [
-    new Block(30, 250),
-    new Block(130, 250),
-    new Block(230, 250),
-    new Block(330, 250),
-    new Block(430, 250),
-    new Block(30, 270),
-    new Block(130, 270),
-    new Block(230, 270),
-    new Block(330, 270),
-    new Block(430, 270),
+    new Block(35, 250),
+    new Block(135, 250),
+    new Block(235, 250),
+    new Block(335, 250),
+    new Block(435, 250),
+    new Block(35, 270),
+    new Block(135, 270),
+    new Block(235, 270),
+    new Block(335, 270),
+    new Block(435, 270),
 ]
 
 function createBlocks() {
@@ -39,15 +41,27 @@ function createBlocks() {
 }
 
 function drawUser() {
-    displayUser.style.left = `${userCurrentPosition[0]}px`
-    displayUser.style.bottom = `${userCurrentPosition[1]}px`
+    userDisplay.style.left = `${userCurrentPosition[0]}px`
+    userDisplay.style.bottom = `${userCurrentPosition[1]}px`
+}
+
+function drawBall() {
+    ballDisplay.style.left = `${ballCurrentPosition[0]}px`
+    ballDisplay.style.bottom = `${ballCurrentPosition[1]}px`
 }
 
 function createUser() {
-    displayUser.classList.add('user')
+    userDisplay.classList.add('user')
     userCurrentPosition = userInitialPosition
     drawUser()
-    gridDisplay.appendChild(displayUser)
+    gridDisplay.appendChild(userDisplay)
+}
+
+function createBall() {
+    ballDisplay.classList.add('ball')
+    ballCurrentPosition = ballInitialPosition
+    drawBall()
+    gridDisplay.appendChild(ballDisplay)
 }
 
 function moveUser(e) {
@@ -67,10 +81,20 @@ function moveUser(e) {
     }
 }
 
+function moveBall() {
+    if(ballCurrentPosition[1] > 0) {
+        ballCurrentPosition[0] -= 1
+        ballCurrentPosition[1] -= 2
+        drawBall()
+    }
+}
+
 function start() {
     document.addEventListener('keydown', moveUser)
     createBlocks()
     createUser()
+    createBall()
+    setInterval(moveBall, 12)
 }
 
 start()
