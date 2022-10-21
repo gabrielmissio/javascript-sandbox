@@ -9,9 +9,10 @@ const gridHeight = 300
 const blockWidth = 70
 const blockHeight = 10
 const userInitialPosition = [240, 50]
-const ballInitialPosition = [265, 220]
+const ballInitialPosition = [270, 220]
 const ballDiameter = 20
 const directions = { up: 1, down: -1, right: 1, left: -1 }
+let result = null
 let userCurrentPosition = null
 let ballId = null
 let ballCurrentPosition = null
@@ -121,23 +122,31 @@ function checkBallCollision() {
 
     // check floor collision
     if (ballCurrentPosition[1] <= 0) {
-        gameOver()
+        result = 'you lose!'
+        endGame()
         return
     }
 
     // check block collision
-    for (const block of blocks) {
+    for (const [index, block] of blocks.entries()) {
         if (
             (
-                ballCurrentPosition[1] <= block.bottomLeft[1] &&
-                ballCurrentPosition[1] >= block.bottomLeft[1] + blockHeight
+                ballCurrentPosition[0] > block.bottomLeft[0] &&
+                ballCurrentPosition[0] < block.bottomRigth[0]
             ) &&
             (
-                ballCurrentPosition[0] <= userCurrentPosition[0] + blockWidth + 7 &&
-                ballCurrentPosition[0] >= userCurrentPosition[0] - 7
+                ballCurrentPosition[1] + ballDiameter > block.bottomLeft[1] &&
+                ballCurrentPosition[1] < block.topLeft[1]
             )
         ) {
-            console.log(JSON.stringify(block))
+            const blocksDisplay = Array.from(document.querySelectorAll('.block'))
+            blocksDisplay[index].classList.remove('block')
+            blocks.splice(index, 1)
+            if (blocks.length === 0) {
+                result = 'you win!'
+                endGame()
+            }
+            changeBallDirection()
         }
     }
 }
@@ -169,9 +178,8 @@ function hitBall() {
     ballCurrentDirectionY = 1
 }
 
-function gameOver() {
-    resultDisplay.innerHTML = 'you lose!'
-    alert('game over')
+function endGame() {
+    resultDisplay.innerHTML = result
     clearInterval(ballId)
 }
 
