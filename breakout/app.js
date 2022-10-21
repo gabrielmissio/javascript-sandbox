@@ -2,6 +2,8 @@ const gridDisplay = document.querySelector('.grid')
 const userDisplay = document.createElement('div')
 const ballDisplay = document.createElement('div')
 const ballDirectionDisplay = document.querySelector('#ballDirection')
+const ballPositionDisplay = document.querySelector('#ballPosition')
+const resultDisplay = document.querySelector('#result')
 const gridWidth = 560
 const gridHeight = 300
 const blockWidth = 70
@@ -93,6 +95,7 @@ function moveBall() {
     drawBall()
     checkBallCollision()
     ballDirectionDisplay.innerHTML = `x: ${ballCurrentDirectionX} | y: ${ballCurrentDirectionY}`
+    ballPositionDisplay.innerHTML = `x: ${ballCurrentPosition[0]} | y: ${ballCurrentPosition[1]}`
 }
 
 function checkBallCollision() {
@@ -109,7 +112,7 @@ function checkBallCollision() {
     if (
         ballCurrentPosition[1] === userCurrentPosition[1] + 10 &&
         (
-            ballCurrentPosition[0] <= userCurrentPosition[0] + blockWidth + 7 &&
+            ballCurrentPosition[0] <= userCurrentPosition[0] + 70 &&
             ballCurrentPosition[0] >= userCurrentPosition[0] - 7
         )
     ) {
@@ -120,6 +123,22 @@ function checkBallCollision() {
     if (ballCurrentPosition[1] <= 0) {
         gameOver()
         return
+    }
+
+    // check block collision
+    for (const block of blocks) {
+        if (
+            (
+                ballCurrentPosition[1] <= block.bottomLeft[1] &&
+                ballCurrentPosition[1] >= block.bottomLeft[1] + blockHeight
+            ) &&
+            (
+                ballCurrentPosition[0] <= userCurrentPosition[0] + blockWidth + 7 &&
+                ballCurrentPosition[0] >= userCurrentPosition[0] - 7
+            )
+        ) {
+            console.log(JSON.stringify(block))
+        }
     }
 }
 
@@ -151,6 +170,7 @@ function hitBall() {
 }
 
 function gameOver() {
+    resultDisplay.innerHTML = 'you lose!'
     alert('game over')
     clearInterval(ballId)
 }
