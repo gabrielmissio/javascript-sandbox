@@ -1,10 +1,10 @@
 const gridDisplay = document.querySelector('.grid')
 const displayUser = document.createElement('div')
-const blockWidth = 90
+const gridWidth = 560
+const blockWidth = 70
 const blockHeight = 10
-const userInitialPosition = [225, 50]
+const userInitialPosition = [240, 50]
 let userCurrentPosition = null
-
 
 class Block {
     constructor(xAxis, yAxis) {
@@ -50,11 +50,25 @@ function createUser() {
     gridDisplay.appendChild(displayUser)
 }
 
-function moveUser() {
-
+function moveUser(e) {
+    switch(e.key) {
+        case 'ArrowLeft':
+            if (userCurrentPosition[0] > 0) {
+                userCurrentPosition[0] -= 12
+                drawUser()
+            }
+            break
+        case 'ArrowRight':
+            if (userCurrentPosition[0] < (gridWidth - blockWidth)) {
+                userCurrentPosition[0] += 12
+                drawUser()
+            }
+            break
+    }
 }
 
 function start() {
+    document.addEventListener('keydown', moveUser)
     createBlocks()
     createUser()
 }
