@@ -94,7 +94,11 @@ function moveBall() {
     ballCurrentPosition[0] += ballCurrentDirectionX
     ballCurrentPosition[1] += ballCurrentDirectionY
     drawBall()
+    drawBallDirectionAndPosition()
     checkBallCollision()
+}
+
+function drawBallDirectionAndPosition() {
     ballDirectionDisplay.innerHTML = `x: ${ballCurrentDirectionX} | y: ${ballCurrentDirectionY}`
     ballPositionDisplay.innerHTML = `x: ${ballCurrentPosition[0]} | y: ${ballCurrentPosition[1]}`
 }
@@ -114,7 +118,7 @@ function checkBallCollision() {
         ballCurrentPosition[1] === userCurrentPosition[1] + 10 &&
         (
             ballCurrentPosition[0] <= userCurrentPosition[0] + 70 &&
-            ballCurrentPosition[0] >= userCurrentPosition[0] - 7
+            ballCurrentPosition[0] + ballDiameter >= userCurrentPosition[0]
         )
     ) {
         hitBall()
@@ -131,12 +135,12 @@ function checkBallCollision() {
     for (const [index, block] of blocks.entries()) {
         if (
             (
-                ballCurrentPosition[0] > block.bottomLeft[0] &&
-                ballCurrentPosition[0] < block.bottomRigth[0]
+                ballCurrentPosition[0] + ballDiameter > block.bottomLeft[0] &&
+                ballCurrentPosition[0] - ballDiameter < block.bottomRigth[0]
             ) &&
             (
                 ballCurrentPosition[1] + ballDiameter > block.bottomLeft[1] &&
-                ballCurrentPosition[1] < block.topLeft[1]
+                ballCurrentPosition[1] - ballDiameter < block.topLeft[1]
             )
         ) {
             const blocksDisplay = Array.from(document.querySelectorAll('.block'))
