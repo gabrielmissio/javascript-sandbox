@@ -1,5 +1,6 @@
 const gridDisplay = document.querySelector('.grid')
 const userDisplay = document.createElement('div')
+const userPositionDisplay = document.querySelector('#userPosition')
 const ballDisplay = document.createElement('div')
 const ballDirectionDisplay = document.querySelector('#ballDirection')
 const ballPositionDisplay = document.querySelector('#ballPosition')
@@ -8,8 +9,7 @@ const gridWidth = 560
 const gridHeight = 300
 const blockWidth = 70
 const blockHeight = 10
-const userInitialPosition = [240, 50]
-const ballInitialPosition = [270, 220]
+const userHeight = 10
 const ballDiameter = 20
 const directions = { up: 1, down: -1, right: 1, left: -1 }
 let result = null
@@ -37,16 +37,21 @@ class Block {
 }
 
 const blocks = [
-    new Block(35, 250),
-    new Block(135, 250),
+    new Block(35, 230),
+    new Block(135, 230),
+    new Block(235, 230),
+    new Block(335, 230),
+    new Block(435, 230),
+    new Block(15, 250),
+    new Block(125, 250),
     new Block(235, 250),
-    new Block(335, 250),
-    new Block(435, 250),
+    new Block(345, 250),
+    new Block(455, 250),
     new Block(35, 270),
     new Block(135, 270),
     new Block(235, 270),
     new Block(335, 270),
-    new Block(435, 270),
+    new Block(435, 270)
 ]
 
 function createBlocks() {
@@ -61,7 +66,7 @@ function createBlocks() {
 
 function createUser() {
     userDisplay.classList.add('user')
-    userCurrentPosition = userInitialPosition
+    userCurrentPosition = [240, 25]
     drawUser()
     gridDisplay.appendChild(userDisplay)
 }
@@ -73,7 +78,7 @@ function drawUser() {
 
 function createBall() {
     ballDisplay.classList.add('ball')
-    ballCurrentPosition = ballInitialPosition
+    ballCurrentPosition = [randomNumber(220, 320), 210]
     ballCurrentDirectionY = directions.down
     ballCurrentDirectionX = randomNumber(0, 1) %2 === 0 ? directions.right : directions.left
     drawBall()
@@ -81,7 +86,7 @@ function createBall() {
 }
 
 function randomNumber(min, max) { 
-    const result = Math.random() * (max - min) + min
+    const result = Math.floor(Math.random() * (max + 1 - min) + min)
     return result
 }
 
@@ -94,13 +99,14 @@ function moveBall() {
     ballCurrentPosition[0] += ballCurrentDirectionX
     ballCurrentPosition[1] += ballCurrentDirectionY
     drawBall()
-    drawBallDirectionAndPosition()
+    drawDebugPainel()
     checkBallCollision()
 }
 
-function drawBallDirectionAndPosition() {
+function drawDebugPainel() {
     ballDirectionDisplay.innerHTML = `x: ${ballCurrentDirectionX} | y: ${ballCurrentDirectionY}`
     ballPositionDisplay.innerHTML = `x: ${ballCurrentPosition[0]} | y: ${ballCurrentPosition[1]}`
+    userPositionDisplay.innerHTML = `startX: ${userCurrentPosition[0]} endX: ${userCurrentPosition[0] + 70} \n| startY: ${userCurrentPosition[1]} endY: ${userCurrentPosition[1] + userHeight}`
 }
 
 function checkBallCollision() {
@@ -115,17 +121,20 @@ function checkBallCollision() {
 
     // check user collision
     if (
-        ballCurrentPosition[1] === userCurrentPosition[1] + 10 &&
         (
-            ballCurrentPosition[0] <= userCurrentPosition[0] + 70 &&
-            ballCurrentPosition[0] + ballDiameter >= userCurrentPosition[0]
+            ballCurrentPosition[1] > userCurrentPosition[1] - userHeight &&
+            ballCurrentPosition[1] < userCurrentPosition[1] + userHeight
+        ) &&
+        (
+            ballCurrentPosition[0] > userCurrentPosition[0] &&
+            ballCurrentPosition[0] < userCurrentPosition[0] + 70
         )
     ) {
         hitBall()
     }
 
     // check floor collision
-    if (ballCurrentPosition[1] <= 0) {
+    if (ballCurrentPosition[1] < 0) {
         result = 'you lose!'
         endGame()
         return
