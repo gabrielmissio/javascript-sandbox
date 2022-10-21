@@ -16,6 +16,14 @@ let ballCurrentPosition = null
 let ballCurrentDirectionX = null
 let ballCurrentDirectionY = null
 
+function start() {
+    createBlocks()
+    createUser()
+    createBall()
+    ballId = setInterval(moveBall, 7)
+    document.addEventListener('keydown', moveUser)
+}
+
 class Block {
     constructor(xAxis, yAxis) {
         this.bottomLeft = [xAxis, yAxis]
@@ -48,16 +56,6 @@ function createBlocks() {
     }
 }
 
-function drawUser() {
-    userDisplay.style.left = `${userCurrentPosition[0]}px`
-    userDisplay.style.bottom = `${userCurrentPosition[1]}px`
-}
-
-function drawBall() {
-    ballDisplay.style.left = `${ballCurrentPosition[0]}px`
-    ballDisplay.style.bottom = `${ballCurrentPosition[1]}px`
-}
-
 function createUser() {
     userDisplay.classList.add('user')
     userCurrentPosition = userInitialPosition
@@ -65,9 +63,9 @@ function createUser() {
     gridDisplay.appendChild(userDisplay)
 }
 
-function randomNumber(min, max) { 
-    const result = Math.random() * (max - min) + min
-    return result
+function drawUser() {
+    userDisplay.style.left = `${userCurrentPosition[0]}px`
+    userDisplay.style.bottom = `${userCurrentPosition[1]}px`
 }
 
 function createBall() {
@@ -79,20 +77,49 @@ function createBall() {
     gridDisplay.appendChild(ballDisplay)
 }
 
-function moveUser(e) {
-    switch(e.key) {
-        case 'ArrowLeft':
-            if (userCurrentPosition[0] > 0) {
-                userCurrentPosition[0] -= 12
-                drawUser()
-            }
-            break
-        case 'ArrowRight':
-            if (userCurrentPosition[0] < (gridWidth - blockWidth)) {
-                userCurrentPosition[0] += 12
-                drawUser()
-            }
-            break
+function randomNumber(min, max) { 
+    const result = Math.random() * (max - min) + min
+    return result
+}
+
+function drawBall() {
+    ballDisplay.style.left = `${ballCurrentPosition[0]}px`
+    ballDisplay.style.bottom = `${ballCurrentPosition[1]}px`
+}
+
+function moveBall() {
+    ballCurrentPosition[0] += ballCurrentDirectionX
+    ballCurrentPosition[1] += ballCurrentDirectionY
+    drawBall()
+    checkBallCollision()
+    ballDirectionDisplay.innerHTML = `x: ${ballCurrentDirectionX} | y: ${ballCurrentDirectionY}`
+}
+
+function checkBallCollision() {
+    // check grid collision
+    if (
+        ballCurrentPosition[1] >= gridHeight - ballDiameter ||
+        ballCurrentPosition[0] <= 0 ||
+        ballCurrentPosition[0] >= gridWidth - ballDiameter
+    ) {
+        changeBallDirection()
+    }
+
+    // check user collision
+    if (
+        ballCurrentPosition[1] === userCurrentPosition[1] + 10 &&
+        (
+            ballCurrentPosition[0] <= userCurrentPosition[0] + blockWidth + 7 &&
+            ballCurrentPosition[0] >= userCurrentPosition[0] - 7
+        )
+    ) {
+        hitBall()
+    }
+
+    // check floor collision
+    if (ballCurrentPosition[1] <= 0) {
+        gameOver()
+        return
     }
 }
 
@@ -123,48 +150,26 @@ function hitBall() {
     ballCurrentDirectionY = 1
 }
 
-function checkBallCollision() {
-    // check grid collision
-    if (
-        ballCurrentPosition[1] >= gridHeight - ballDiameter ||
-        ballCurrentPosition[0] <= 0 ||
-        ballCurrentPosition[0] >= gridWidth - ballDiameter
-    ) {
-        changeBallDirection()
-    }
-
-    // check user collision
-    if (
-        ballCurrentPosition[1] === userCurrentPosition[1] + 10 &&
-        (
-            ballCurrentPosition[0] <= userCurrentPosition[0] + blockWidth &&
-            ballCurrentPosition[0] >= userCurrentPosition[0]
-        )
-    ) {
-        hitBall()
-    }
-
-    // check floor collision
-    if (ballCurrentPosition[1] <= 0) {
-        alert('game over')
-        clearInterval(ballId)
-    }
+function gameOver() {
+    alert('game over')
+    clearInterval(ballId)
 }
 
-function moveBall() {
-    ballCurrentPosition[0] += ballCurrentDirectionX
-    ballCurrentPosition[1] += ballCurrentDirectionY
-    drawBall()
-    checkBallCollision()
-    ballDirectionDisplay.innerHTML = `x: ${ballCurrentDirectionX} | y: ${ballCurrentDirectionY}`
-}
-
-function start() {
-    document.addEventListener('keydown', moveUser)
-    createBlocks()
-    createUser()
-    createBall()
-    ballId = setInterval(moveBall, 14)
+function moveUser(e) {
+    switch(e.key) {
+        case 'ArrowLeft':
+            if (userCurrentPosition[0] > 0) {
+                userCurrentPosition[0] -= 12
+                drawUser()
+            }
+            break
+        case 'ArrowRight':
+            if (userCurrentPosition[0] < (gridWidth - blockWidth)) {
+                userCurrentPosition[0] += 12
+                drawUser()
+            }
+            break
+    }
 }
 
 start()
