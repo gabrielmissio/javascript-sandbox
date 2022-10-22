@@ -12,6 +12,7 @@ const blockHeight = 10
 const userHeight = 10
 const ballDiameter = 20
 const directions = { up: 1, down: -1, right: 1, left: -1 }
+const blocks = []
 let result = null
 let userCurrentPosition = null
 let ballId = null
@@ -20,6 +21,24 @@ let ballCurrentDirectionX = null
 let ballCurrentDirectionY = null
 
 function start() {
+    const newBlocks = [
+        new Block(35, 230),
+        new Block(135, 230),
+        new Block(235, 230),
+        new Block(335, 230),
+        new Block(435, 230),
+        new Block(15, 250),
+        new Block(125, 250),
+        new Block(235, 250),
+        new Block(345, 250),
+        new Block(455, 250),
+        new Block(35, 270),
+        new Block(135, 270),
+        new Block(235, 270),
+        new Block(335, 270),
+        new Block(435, 270)
+    ]
+    blocks.push(...newBlocks)
     createBlocks()
     createUser()
     createBall()
@@ -36,24 +55,6 @@ class Block {
     }
 }
 
-const blocks = [
-    new Block(35, 230),
-    new Block(135, 230),
-    new Block(235, 230),
-    new Block(335, 230),
-    new Block(435, 230),
-    new Block(15, 250),
-    new Block(125, 250),
-    new Block(235, 250),
-    new Block(345, 250),
-    new Block(455, 250),
-    new Block(35, 270),
-    new Block(135, 270),
-    new Block(235, 270),
-    new Block(335, 270),
-    new Block(435, 270)
-]
-
 function createBlocks() {
     for (const block of blocks) {
         const blockDisplay = document.createElement('div')
@@ -62,6 +63,15 @@ function createBlocks() {
         blockDisplay.style.bottom = `${block.bottomLeft[1]}px`
         gridDisplay.appendChild(blockDisplay)
     }
+}
+
+function destroyAllBlocks() {
+    const blocksDisplay = document.querySelectorAll('.block')
+    for (const blockDisplay of blocksDisplay) {
+        blockDisplay.remove()
+    }
+
+    blocks.splice(0, blocks.length)
 }
 
 function createUser() {
@@ -136,7 +146,7 @@ function checkBallCollision() {
     // check floor collision
     if (ballCurrentPosition[1] < 0) {
         result = 'you lose!'
-        endGame()
+        end()
         return
     }
 
@@ -157,7 +167,7 @@ function checkBallCollision() {
             blocks.splice(index, 1)
             if (blocks.length === 0) {
                 result = 'you win!'
-                endGame()
+                end()
             }
             ballCurrentDirectionY *= -1
         }
@@ -187,9 +197,17 @@ function changeBallDirection() {
     }
 }
 
-function endGame() {
+function end() {
     resultDisplay.innerHTML = result
+    ballDisplay.classList.remove('ball')
     clearInterval(ballId)
+}
+
+function reset() {
+    end()
+    resultDisplay.innerHTML = null
+    destroyAllBlocks()
+    start()
 }
 
 function moveUser(e) {
@@ -205,6 +223,9 @@ function moveUser(e) {
                 userCurrentPosition[0] += 12
                 drawUser()
             }
+            break
+        case 'r':
+            reset()
             break
     }
 }
