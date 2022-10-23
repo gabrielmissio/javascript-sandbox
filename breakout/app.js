@@ -224,10 +224,14 @@ function moveUser(e) {
                 drawUser()
             }
             break
-        case 'r':
+        case 'Enter':
             reset()
             break
     }
+}
+
+window.onload = function() {
+    document.body.focus()
 }
 
 start()
