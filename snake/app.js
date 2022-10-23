@@ -54,16 +54,24 @@ function updateFoodPosition() {
 function changeSnakeDirection(e) {
     switch(e.key) {
         case 'ArrowRight':
-            snake.direction = directions.right
+            if (snake.direction !== directions.left) {
+                snake.direction = directions.right
+            }
             break
         case 'ArrowLeft':
-            snake.direction = directions.left
+            if (snake.direction !== directions.right) {
+                snake.direction = directions.left
+            }    
             break
         case 'ArrowUp':
-            snake.direction = directions.up
+            if (snake.direction !== directions.down) {
+                snake.direction = directions.up
+            } 
             break
         case 'ArrowDown':
-            snake.direction = directions.down
+            if (snake.direction !== directions.up) {
+                snake.direction = directions.down
+            } 
             break
     }
 }
