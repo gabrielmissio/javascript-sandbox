@@ -10,13 +10,45 @@ const directions = {
 }
 const snake = {}
 let timerId = null
+let currentFoodPosition = null
 
 function start() {
     snake.body = [snakeInitialPosition]
     snake.direction = directions.right
 
+    drawFood()
+
     document.addEventListener('keydown', changeSnakeDirection)
     timerId = setInterval(moveSnake, 200)
+}
+
+function drawFood() {
+    updateFoodPosition()
+    
+    const allFoodsDisplay = document.querySelectorAll('.food')
+    for (const foodDisplay of allFoodsDisplay) {
+        foodDisplay.remove()
+    }
+
+    const foodDisplay = document.createElement('div')
+    foodDisplay.classList.add('food')
+    foodDisplay.style.left = `${currentFoodPosition.x}px`
+    foodDisplay.style.bottom = `${currentFoodPosition.y}px`
+    gridDisplay.appendChild(foodDisplay)
+}
+
+function updateFoodPosition() {    
+    do {
+        const randomX = (Math.floor(Math.random() * (gridDimensions.width / pieceOfSnakeDimensions.width))) * pieceOfSnakeDimensions.width
+        const randomY = (Math.floor(Math.random() * (gridDimensions.height / pieceOfSnakeDimensions.height))) * pieceOfSnakeDimensions.height
+
+        const temp = snake.body.find((pieceOfSnake) =>
+            pieceOfSnake.x === randomX &&
+            pieceOfSnake.y === randomY
+        )
+
+        currentFoodPosition = temp ? null : { x: randomX, y: randomY }
+    } while(currentFoodPosition === null)
 }
 
 function changeSnakeDirection(e) {
@@ -50,13 +82,13 @@ function moveSnake() {
 }
 
 function isScore() {
-    return false
+    const result = JSON.stringify(snake.body[0]) === JSON.stringify(currentFoodPosition)
+    return result
 }
 
 function eatFood() {
-    // score ++
-    // remove current food
-    // create new food
+    currentFoodPosition = null
+    drawFood()
 }
 
 
