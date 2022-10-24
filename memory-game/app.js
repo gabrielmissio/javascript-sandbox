@@ -42,7 +42,7 @@ function createBoard() {
   for (let index = 0; index < deck.length; index++) {
     const cardDisplay = document.createElement('img')
     cardDisplay.setAttribute('id', index)
-    cardDisplay.setAttribute('src', 'images/blank.jpg')
+    cardDisplay.setAttribute('src', deck[index].img)
     cardDisplay.setAttribute('width', 150)
     cardDisplay.setAttribute('height', 100)
     cardDisplay.addEventListener('click', flipCard)
@@ -54,11 +54,8 @@ function checkMatch() {
   const [ cardOne, cardTwo ] = chosenCards
   const isSameCard = cardOne.getAttribute('id') === cardTwo.getAttribute('id')
   const isMatch = !isSameCard && cardOne.getAttribute('src') === cardTwo.getAttribute('src')
-
-  if (isSameCard) alert('same card!')
   
   if (isMatch) {
-    alert('score!')
     wonCards.push(cardOne, cardTwo)
     cardOne.setAttribute('src', 'images/white.png')
     cardTwo.setAttribute('src', 'images/white.png')
@@ -92,4 +89,13 @@ function flipCard() {
   }
 }
 
+function flipAllCards() {
+  const cardsDisplay = document.querySelectorAll('img')
+
+  for (const cardDisplay of cardsDisplay) {
+    cardDisplay.setAttribute('src', 'images/blank.jpg')
+  }
+}
+
 createBoard()
+setTimeout(flipAllCards, 1500)
