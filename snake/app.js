@@ -1,5 +1,6 @@
 const gridDisplay = document.querySelector('.grid')
 const scoreDisplay = document.querySelector('#score')
+const resultDisplay = document.querySelector('#result')
 const gridDimensions = { width: 400, height: 400 }
 const pieceOfSnakeDimensions = { width: 20, height: 20 }
 const snakeInitialPosition = { x: 100, y: 100 }
@@ -22,6 +23,7 @@ function start() {
 
     score = 0
     scoreDisplay.innerHTML = score
+    resultDisplay.innerHTML = null
 
     updateFoodPosition()
     drawFood()
@@ -83,7 +85,15 @@ function changeSnakeDirection(e) {
                 snake.direction = directions.down
             } 
             break
+        case 'Enter':
+            restart()
+            break
     }
+}
+
+function restart() {
+    gameOver()
+    start()
 }
 
 function moveSnake() {
@@ -100,8 +110,7 @@ function moveSnake() {
 }
 
 function isScore() {
-    const result = JSON.stringify(snake.body[0]) === JSON.stringify(currentFoodPosition)
-    return result
+    return JSON.stringify(snake.body[0]) === JSON.stringify(currentFoodPosition)
 }
 
 function eatFood() {
@@ -139,7 +148,7 @@ function isGameOver() {
 
 function gameOver() {
     clearInterval(timerId)
-    alert('gameover')
+    resultDisplay.innerHTML = 'Game Over'
 }
 
 
