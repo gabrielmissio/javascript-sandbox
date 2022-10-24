@@ -1,30 +1,54 @@
 const gridDisplay = document.querySelector('.grid')
+const scoreDisplay = document.querySelector('#score')
 const gridDimensions = { width: 400, height: 400 }
 const pieceOfSnakeDimensions = { width: 20, height: 20 }
 const snakeInitialPosition = { x: 100, y: 100 }
+const timeToNextFrameInMilliseconds = 100
+const snake = {}
 const directions = {
     right: { x: 20, y: 0 },
     left: { x: -20, y: 0 },
     up: { x: 0, y: 20 },
     down: { x: 0, y: -20 }
 }
-const snake = {}
+let score = null
 let timerId = null
+let availablePositions = null
 let currentFoodPosition = null
 
 function start() {
     snake.body = [snakeInitialPosition]
     snake.direction = directions.right
 
+    score = 0
+    scoreDisplay.innerHTML = score
+
+    updateFoodPosition()
     drawFood()
 
     document.addEventListener('keydown', changeSnakeDirection)
-    timerId = setInterval(moveSnake, 200)
+    timerId = setInterval(moveSnake, timeToNextFrameInMilliseconds)
 }
 
-function drawFood() {
-    updateFoodPosition()
-    
+function updateFoodPosition() {
+    availablePositions = []
+
+    for (let x = 0; x < gridDimensions.width; x += pieceOfSnakeDimensions.width) {
+        for (let y = 0; y < gridDimensions.height; y += pieceOfSnakeDimensions.height) {
+            const positionAlreadyInUse = snake.body.find((pieceOfSnake) =>
+                pieceOfSnake.x === x &&
+                pieceOfSnake.y === y
+            )
+
+            if (!positionAlreadyInUse) availablePositions.push({ x, y })
+        }    
+    }
+
+    const randomIndex = Math.floor(Math.random() * availablePositions.length)
+    currentFoodPosition = availablePositions[randomIndex]
+}
+
+function drawFood() {    
     const allFoodsDisplay = document.querySelectorAll('.food')
     for (const foodDisplay of allFoodsDisplay) {
         foodDisplay.remove()
@@ -35,20 +59,6 @@ function drawFood() {
     foodDisplay.style.left = `${currentFoodPosition.x}px`
     foodDisplay.style.bottom = `${currentFoodPosition.y}px`
     gridDisplay.appendChild(foodDisplay)
-}
-
-function updateFoodPosition() {    
-    do {
-        const randomX = (Math.floor(Math.random() * (gridDimensions.width / pieceOfSnakeDimensions.width))) * pieceOfSnakeDimensions.width
-        const randomY = (Math.floor(Math.random() * (gridDimensions.height / pieceOfSnakeDimensions.height))) * pieceOfSnakeDimensions.height
-
-        const temp = snake.body.find((pieceOfSnake) =>
-            pieceOfSnake.x === randomX &&
-            pieceOfSnake.y === randomY
-        )
-
-        currentFoodPosition = temp ? null : { x: randomX, y: randomY }
-    } while(currentFoodPosition === null)
 }
 
 function changeSnakeDirection(e) {
@@ -96,9 +106,13 @@ function isScore() {
 
 function eatFood() {
     currentFoodPosition = null
+    
+    score += 10
+    scoreDisplay.innerHTML = score
+
+    updateFoodPosition()
     drawFood()
 }
-
 
 function isGameOver() {
     const currentSnakeHeadPosition = snake.body[0]
