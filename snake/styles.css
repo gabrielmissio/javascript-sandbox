@@ -1,0 +1,20 @@
+.grid {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border: solid black 1px;
+}
+
+.snake {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: green;
+}
+
+.food {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+}
