@@ -1,0 +1,21 @@
+{
+  "name": "javascript-playground",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Gabriel Missio",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "https://github.com/gabrielmissio/javascript-sandbox#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielmissio/javascript-sandbox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gabrielmissio/javascript-sandbox/issues"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1239.0"
+  }
+}
