@@ -54,7 +54,7 @@ function checkMatch() {
   const [ cardOne, cardTwo ] = chosenCards
   const isSameCard = cardOne.getAttribute('id') === cardTwo.getAttribute('id')
   const isMatch = !isSameCard && cardOne.getAttribute('src') === cardTwo.getAttribute('src')
-  
+
   if (isMatch) {
     wonCards.push(cardOne, cardTwo)
     cardOne.setAttribute('src', 'images/white.png')
@@ -68,7 +68,7 @@ function checkMatch() {
     cardOne.setAttribute('src', 'images/blank.jpg')
     cardTwo.setAttribute('src', 'images/blank.jpg')
   }
-  
+
   scoreDisplay.innerHTML = score
   hitsDisplay.innerHTML = hits
   isBlocked = false

@@ -37,10 +37,10 @@ async function uploadFile(filename, fileContent) {
 async function getFilesFromDirectory (directory, files) {
     if(!files) files = []
     let listOfFiles = await fs.readdir(directory)
-    
+
     for(let i in listOfFiles) {
         let stat = await fs.stat(directory + '/' + listOfFiles[i])
-        
+
         if(stat.isDirectory()) {
             await getFilesFromDirectory(directory + '/' + listOfFiles[i], files)
         } else {
@@ -53,7 +53,7 @@ async function getFilesFromDirectory (directory, files) {
 
 async function deployHandler() {
     const projectFilesDirectories = await getFilesFromDirectory(`./src/${config.projectName}`)
-    
+
     const result = await Promise.all(
         projectFilesDirectories.map(async (fileDirectory) => {
             const fileContent = await fs.readFile(fileDirectory)
@@ -63,7 +63,7 @@ async function deployHandler() {
             return result
         })
     )
- 
+
     return result
 }
 

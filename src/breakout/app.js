@@ -95,7 +95,7 @@ function createBall() {
     gridDisplay.appendChild(ballDisplay)
 }
 
-function randomNumber(min, max) { 
+function randomNumber(min, max) {
     const result = Math.floor(Math.random() * (max + 1 - min) + min)
     return result
 }

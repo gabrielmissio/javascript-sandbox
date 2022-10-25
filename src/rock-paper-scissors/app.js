@@ -21,13 +21,13 @@ function generateCpuChoice() {
 
 function getResult() {
   if (!userChoice || !cpuChoice) result = 'error'
-  if (userChoice === cpuChoice) result = `it's a draw!`
+  if (userChoice === cpuChoice) result = 'it\'s a draw!'
   if (userChoice === 'rock' && cpuChoice === 'paper') result = 'you lose!'
   if (userChoice === 'rock' && cpuChoice === 'scissors') result = 'you win!'
   if (userChoice === 'paper' && cpuChoice === 'rock') result = 'you win!'
   if (userChoice === 'paper' && cpuChoice === 'scissors') result = 'you lose!'
   if (userChoice === 'scissors' && cpuChoice === 'rock') result = 'you lose!'
   if (userChoice === 'scissors' && cpuChoice === 'paper') result = 'you win!'
-  
+
   resultDisplay.innerHTML = result
 }

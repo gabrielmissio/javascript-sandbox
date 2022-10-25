@@ -60,7 +60,7 @@ function createCatalogItem({ label, imgUrl, demoUrl }) {
     catalogItemImage.setAttribute('src', imgUrl)
     const catalogItemLabel = document.createElement('h3')
     catalogItemLabel.innerHTML = label
-   
+
     catalogItemLink.append(catalogItemImage)
     catalogItemLink.append(catalogItemLabel)
 }

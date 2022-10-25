@@ -43,14 +43,14 @@ function updateFoodPosition() {
             )
 
             if (!positionAlreadyInUse) availablePositions.push({ x, y })
-        }    
+        }
     }
 
     const randomIndex = Math.floor(Math.random() * availablePositions.length)
     currentFoodPosition = availablePositions[randomIndex]
 }
 
-function drawFood() {    
+function drawFood() {
     const allFoodsDisplay = document.querySelectorAll('.food')
     for (const foodDisplay of allFoodsDisplay) {
         foodDisplay.remove()
@@ -73,17 +73,17 @@ function changeSnakeDirection(e) {
         case 'ArrowLeft':
             if (snake.direction !== directions.right) {
                 snake.direction = directions.left
-            }    
+            }
             break
         case 'ArrowUp':
             if (snake.direction !== directions.down) {
                 snake.direction = directions.up
-            } 
+            }
             break
         case 'ArrowDown':
             if (snake.direction !== directions.up) {
                 snake.direction = directions.down
-            } 
+            }
             break
         case 'Enter':
             restart()
@@ -104,7 +104,7 @@ function moveSnake() {
     }
 
     snake.body.unshift(nextSnakeHeadPosition)
-    
+
     isScore() ? eatFood() : snake.body.pop()
     isGameOver() ? gameOver() : drawSnake()
 }
@@ -115,7 +115,7 @@ function isScore() {
 
 function eatFood() {
     currentFoodPosition = null
-    
+
     score += 10
     scoreDisplay.innerHTML = score
 

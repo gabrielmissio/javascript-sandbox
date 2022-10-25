@@ -17,7 +17,7 @@ function moveMoleToRandomSquare() {
 
   const randomSquareIndex = Math.floor(Math.random() * squares.length)
   const square = squares[randomSquareIndex]
-  
+
   square.classList.add('mole')
   molePosition = square.id
 }
