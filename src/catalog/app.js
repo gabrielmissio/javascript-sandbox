@@ -24,10 +24,10 @@ const data = [
         demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/memory-game'
     },
     {
-        label: 'MEMORY GAME',
-        repoUrl: 'https://github.com/gabrielmissio/javascript-sandbox/tree/main/src/memory-game',
-        imgUrl: 'images/memory-game-demo-temp.png',
-        demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/memory-game'
+        label: 'CATALOG',
+        repoUrl: 'https://github.com/gabrielmissio/javascript-sandbox/tree/main/src/catalog',
+        imgUrl: 'images/catalog-demo.png',
+        demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/'
     },
     {
         label: 'WHAC-A-MOLE',
