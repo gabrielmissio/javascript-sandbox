@@ -3,6 +3,9 @@
     width: 560px;
     height: 300px;
     border: solid black 1px;
+
+    left: 50%;
+    margin-left: -280px;
 }
 
 .block {
@@ -25,4 +28,15 @@
     height: 20px;
     border-radius: 10px;
     background-color: red;
+}
+
+.container {
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
