@@ -3,6 +3,8 @@
     width: 400px;
     height: 400px;
     border: solid black 1px;
+    left: 50%;
+    margin-left: -200px;
 }
 
 .snake {
@@ -17,4 +19,15 @@
     width: 20px;
     height: 20px;
     background-color: red;
+}
+
+.container {
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
