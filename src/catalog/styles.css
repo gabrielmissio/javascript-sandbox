@@ -5,8 +5,26 @@
     text-align: center;
     margin-left: 2%;
     margin-right: 2%;
+    margin-bottom: 7px;
     border-bottom: 3px solid black;
     border-top: 3px solid black;
+}
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 25px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top: 3px solid black;
+}
+
+.footer a {
+    text-decoration: none;    
 }
 
 .catalog {
