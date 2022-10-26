@@ -1,17 +1,31 @@
 .grid {
+  position: absolute;
   width: 456px;
   height: 456px;
   display: flex;
   flex-wrap: wrap;
+  left: 50%;
+  margin-left: -228px;
 }
 
 .square {
-  width: 150px;
-  height: 150px;
+  width: 32%;
+  height: auto;
   border: solid black 1px;
 }
 
 .mole {
   background-image: url('images/mole.png');
   background-size: cover;
+}
+
+.container {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
