@@ -1,10 +1,24 @@
 #grid {
+  position: absolute;
   width: 460px;
   height: auto;
   display: flex;
   flex-wrap: wrap;
+  left: 50%;
+  margin-left: -230px;
 }
 
 img {
   border: solid black 1px;
+}
+
+.container {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
