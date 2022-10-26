@@ -27,7 +27,7 @@ const data = [
         label: 'CATALOG',
         repoUrl: 'https://github.com/gabrielmissio/javascript-sandbox/tree/main/src/catalog',
         imgUrl: 'images/catalog-demo.png',
-        demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/'
+        demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/catalog'
     },
     {
         label: 'WHAC-A-MOLE',
