@@ -3,49 +3,49 @@ const data = [
         label: 'BREAKOUT',
         repoUrl: 'https://github.com/gabrielmissio/javascript-sandbox/tree/main/src/breakout',
         imgUrl: 'images/breakout-demo.png',
-        demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/breakout'
+        demoUrl: '../breakout/index.html'
     },
     {
         label: 'SNAKE',
         repoUrl: 'https://github.com/gabrielmissio/javascript-sandbox/tree/main/src/snake',
         imgUrl: 'images/snake-demo.png',
-        demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/snake'
+        demoUrl: '../snake/index.html'
     },
     {
         label: 'WHAC-A-MOLE',
         repoUrl: 'https://github.com/gabrielmissio/javascript-sandbox/tree/main/src/whac-a-mole',
         imgUrl: 'images/whac-a-mole-demo.png',
-        demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/whac-a-mole'
+        demoUrl: '../whac-a-mole/index.html'
     },
     {
         label: 'MEMORY GAME',
         repoUrl: 'https://github.com/gabrielmissio/javascript-sandbox/tree/main/src/memory-game',
         imgUrl: 'images/memory-game-demo-temp.png',
-        demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/memory-game'
+        demoUrl: '../memory-game/index.html'
     },
     {
         label: 'CATALOG',
         repoUrl: 'https://github.com/gabrielmissio/javascript-sandbox/tree/main/src/catalog',
         imgUrl: 'images/catalog-demo.png',
-        demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/catalog'
+        demoUrl: '../catalog/index.html'
     },
     {
         label: 'WHAC-A-MOLE',
         repoUrl: 'https://github.com/gabrielmissio/javascript-sandbox/tree/main/src/whac-a-mole',
         imgUrl: 'images/whac-a-mole-demo.png',
-        demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/whac-a-mole'
+        demoUrl: '../whac-a-mole/index.html'
     },
     {
         label: 'SNAKE',
         repoUrl: 'https://github.com/gabrielmissio/javascript-sandbox/tree/main/src/snake',
         imgUrl: 'images/snake-demo.png',
-        demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/snake'
+        demoUrl: '../snake/index.html'
     },
     {
         label: 'BREAKOUT',
         repoUrl: 'https://github.com/gabrielmissio/javascript-sandbox/tree/main/src/breakout',
         imgUrl: 'images/breakout-demo.png',
-        demoUrl: 'http://javascript-sandbox.s3-website-us-east-1.amazonaws.com/breakout'
+        demoUrl: '../breakout/index.html'
     }
 ]
 
